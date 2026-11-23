@@ -20,12 +20,21 @@ def print_result(name: str, result):
     print(f"Fronteira : {result.max_frontier_size} (máx)")
 
 
-if __name__ == "__main__":
-    initial = State((2, 8, 3, 1, 6, 4, 7, 0, 5))   # ~20 movimentos até a solução
-
-    print("Estado inicial:")
+def run(initial: State):
+    print("\nEstado inicial:")
     print(initial)
+    if not initial.is_solvable:
+        print("(sem solução para o objetivo 1 2 3 / 4 5 6 / 7 8 _ — paridade de inversões ímpar)")
 
     print_result("BFS",  BFS().search(initial))
     print_result("DFS",  DFS().search(initial))
     print_result("A*",   AStar().search(initial))
+
+
+if __name__ == "__main__":
+    # Estado do template original: clássico de livro, mas para o objetivo
+    # 1 2 3 / 8 _ 4 / 7 6 5. Com o objetivo deste projeto ele não tem solução.
+    run(State((2, 8, 3, 1, 6, 4, 7, 0, 5)))
+
+    # Estado com solução ótima de 20 movimentos.
+    run(State((7, 2, 4, 5, 0, 6, 8, 3, 1)))
